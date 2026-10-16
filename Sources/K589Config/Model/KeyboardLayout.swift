@@ -114,7 +114,8 @@ enum KeyboardLayout {
         .init(id: "KEY_0CB", label: "Left", rect: CGRect(x: 468, y: 182, width: 21, height: 24)),
         .init(id: "KEY_0D0", label: "Down", rect: CGRect(x: 496, y: 182, width: 21, height: 24)),
         .init(id: "KEY_0CD", label: "Right", rect: CGRect(x: 524, y: 182, width: 21, height: 24)),
-        .init(id: "KEY_FN", label: "Fn", rect: CGRect(x: 357, y: 111, width: 26, height: 21)),
+        // Prefer bottom-row Fn from Main.ini (625,377); ignore duplicate at (628,306).
+        .init(id: "KEY_FN", label: "Fn", rect: CGRect(x: 354, y: 182, width: 28, height: 23)),
     ]
 }
 
