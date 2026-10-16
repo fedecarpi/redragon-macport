@@ -2,7 +2,7 @@ import CoreGraphics
 import Foundation
 
 /// Key hit-rects from Windows `Files1/Main.ini` `[BUTTONINFO]`, cropped to the keyboard art.
-struct KeyboardKey: Identifiable, Hashable, Sendable {
+struct KeyboardKey: Identifiable, Sendable {
     let id: String
     let label: String
     let rect: CGRect  // in skin image points
