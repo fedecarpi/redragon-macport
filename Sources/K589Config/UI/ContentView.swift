@@ -140,7 +140,7 @@ struct ContentView: View {
 
             Spacer()
 
-            Text("Macros / per-key remaps from the Windows Composite dialog are not ported yet (needs Hopper/Ghidra decompilation once the REA Hopper session is healthy).")
+            Text("Lighting and polling are live. Macro / per-key remap editor UI is next — HID bulk upload (cmd 0x08 / 0x0A) is already wired in the protocol layer from FwCustom.")
                 .font(.caption)
                 .foregroundStyle(.white.opacity(0.45))
         }
