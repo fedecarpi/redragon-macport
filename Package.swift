@@ -11,6 +11,9 @@ let package = Package(
         .executableTarget(
             name: "K589Config",
             path: "Sources/K589Config",
+            resources: [
+                .process("Resources")
+            ],
             linkerSettings: [
                 .linkedFramework("IOKit"),
                 .linkedFramework("AppKit"),

@@ -136,65 +136,25 @@ struct ContentView: View {
                 .foregroundStyle(.white.opacity(0.7))
                 .frame(maxWidth: 560, alignment: .leading)
 
-            keyboardChrome
+            KeyboardPreview(
+                mode: model.selectedMode,
+                brightness: model.brightness,
+                speed: model.speed,
+                direction: model.direction,
+                color: model.color,
+                colourful: model.randomColor || !model.selectedMode.supportsColor
+            )
+            .frame(maxWidth: .infinity)
+            .frame(minHeight: 220, maxHeight: 320)
 
             Spacer()
 
-            Text("Lighting and polling are live. Macro / per-key remap editor UI is next — HID bulk upload (cmd 0x08 / 0x0A) is already wired in the protocol layer from FwCustom.")
+            Text("Preview uses the Windows keyboard skin + `Main.ini` key rects with a local effect simulation. Macro editor UI is next (HID bulk 0x08 / 0x0A already in the protocol layer).")
                 .font(.caption)
                 .foregroundStyle(.white.opacity(0.45))
         }
         .padding(32)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-    }
-
-    private var keyboardChrome: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 18, style: .continuous)
-                .fill(
-                    LinearGradient(
-                        colors: [Color.black.opacity(0.55), Color.red.opacity(0.18)],
-                        startPoint: .top,
-                        endPoint: .bottom
-                    )
-                )
-                .overlay(
-                    RoundedRectangle(cornerRadius: 18, style: .continuous)
-                        .stroke(Color.white.opacity(0.08), lineWidth: 1)
-                )
-
-            VStack(spacing: 10) {
-                ForEach(0..<5, id: \.self) { row in
-                    HStack(spacing: 6) {
-                        ForEach(0..<14, id: \.self) { col in
-                            RoundedRectangle(cornerRadius: 4, style: .continuous)
-                                .fill(keyFill(row: row, col: col))
-                                .frame(width: keyWidth(row: row, col: col), height: 28)
-                                .shadow(color: glowColor.opacity(0.55), radius: 6)
-                        }
-                    }
-                }
-            }
-            .padding(28)
-        }
-        .frame(height: 260)
-        .animation(.easeInOut(duration: 0.35), value: model.selectedMode.id)
-        .animation(.easeInOut(duration: 0.25), value: model.color.description)
-    }
-
-    private var glowColor: Color {
-        model.randomColor ? .purple : model.color
-    }
-
-    private func keyFill(row: Int, col: Int) -> Color {
-        let base = glowColor.opacity(0.35 + Double((row + col) % 3) * 0.15)
-        return base.opacity(0.25 + model.brightness / 4 * 0.75)
-    }
-
-    private func keyWidth(row: Int, col: Int) -> CGFloat {
-        if row == 4 && col == 3 { return 90 }
-        if row == 2 && col == 13 { return 52 }
-        return 34
     }
 
     @ViewBuilder

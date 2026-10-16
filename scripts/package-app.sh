@@ -49,6 +49,12 @@ mkdir -p "${APP_BUNDLE}/Contents/Resources"
 cp "${BIN}" "${APP_BUNDLE}/Contents/MacOS/${APP_NAME}"
 chmod +x "${APP_BUNDLE}/Contents/MacOS/${APP_NAME}"
 
+# SPM resource bundle (keyboard skin, etc.)
+BUNDLE_SRC="$(find "${ROOT}/.build" -type d -name "${APP_NAME}_${APP_NAME}.bundle" | head -n 1 || true)"
+if [[ -n "${BUNDLE_SRC}" ]]; then
+  cp -R "${BUNDLE_SRC}" "${APP_BUNDLE}/Contents/Resources/"
+fi
+
 cat > "${APP_BUNDLE}/Contents/Info.plist" <<PLIST
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
